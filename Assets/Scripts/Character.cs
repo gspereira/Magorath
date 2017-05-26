@@ -150,19 +150,20 @@ public class Character : NetworkBehaviour {
         }
         if(SpecialID == 1)
         {
-            HabilityName = "Level UP";
-            HabilityChargingSpeed = 6f;
-        }
-        if(SpecialID == 2)
-        {
             HabilityName = "Switch";
             HabilityChargingSpeed = 20f;
+        }
+        if (SpecialID == 2)
+        {
+            HabilityName = "Level UP";
+            HabilityChargingSpeed = 6f;
         }
     }
     void Special()
     {
         if (SpecialID == 0) { TDC.TeleportCharacter(15); }
-        if (SpecialID == 1)
+        if (SpecialID == 1) { if (FiringMode == 0) { FiringMode = 1; } else { FiringMode = 0; } }
+        if (SpecialID == 2)
         {
             if (HabilityCounter < 5)
             {
@@ -174,7 +175,6 @@ public class Character : NetworkBehaviour {
                 HabilityCounter++;
             }
         }
-        if (SpecialID == 2) { if (FiringMode == 0) { FiringMode = 1; } else { FiringMode = 0; } }
         HabilityCharge = 0;
     }
 
