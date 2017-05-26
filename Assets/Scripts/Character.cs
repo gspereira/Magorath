@@ -32,7 +32,7 @@ public class Character : NetworkBehaviour {
     [SyncVar]
     public int Stamina;
     [SyncVar]
-    public int MaxStamina;
+    public float MaxStamina;
 
     // Gun Information
     [SyncVar]
@@ -58,6 +58,8 @@ public class Character : NetworkBehaviour {
     public float HabilityCharge;
     [SyncVar]
     public float HabilityChargingSpeed;
+    [SyncVar]
+    public int HabilityCounter;
 
     public bool Local;
 
@@ -162,14 +164,15 @@ public class Character : NetworkBehaviour {
         if (SpecialID == 0) { TDC.TeleportCharacter(15); }
         if (SpecialID == 1)
         {
-            WalkingSpeed *= 1.5f;
-            SprintSpeed *= 1.5f;
-            FireRate *= 0.5f;
-            Damage *= 1.5f;
-            MaxHP *= 2;
-            HP += MaxHP / 3;
-            MaxStamina *= 2;
-
+            if (HabilityCounter < 5)
+            {
+                WalkingSpeed *= 0.75f;
+                SprintSpeed *= 0.75f;
+                FireRate *= 0.2f;
+                Damage *= 1.5f;
+                MaxStamina *= 1.2f;
+                HabilityCounter++;
+            }
         }
         if (SpecialID == 2) { if (FiringMode == 0) { FiringMode = 1; } else { FiringMode = 0; } }
         HabilityCharge = 0;

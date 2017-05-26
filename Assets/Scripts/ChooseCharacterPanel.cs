@@ -61,8 +61,8 @@ public class ChooseCharacterPanel : NetworkBehaviour {
         {
             
 
-            CHARA.MaxHP = 300;
-            CHARA.HP = 300;
+            CHARA.MaxHP = 500;
+            CHARA.HP = 500;
             CHARA.WalkingSpeed = 2;
             CHARA.SprintSpeed = 4;
             CHARA.BulletSpeed = 1500;
