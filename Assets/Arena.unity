@@ -74,6 +74,7 @@ LightmapSettings:
     m_MixedBakeMode: 3
     m_BakeBackend: 0
     m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -863,22 +864,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character Boss
+  m_Text: 'Druid
 
 
-    Slow Speed
+    Medium Speed
 
-    Low Damage
+    Medium Damage
 
-    Low HP
+    Medium HP
 
-    Automatic Slow GUN
+    Low RPM Automatic
 
 
-    Special:Level UP
+    Special:Switch Mode
 
-    The boss can press shift when his special is charged to become stronger,every
-    time the boss level ups he becomes faster,stronger and more resilient'
+    The character can switch between healing teammates and damaging enemies'
 --- !u!222 &857210657
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -952,21 +952,22 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Druid
+  m_Text: 'Character Boss
 
 
-    Medium Speed
+    Slow Speed
 
-    Medium Damage
+    Low Damage
 
-    Medium HP
+    Low HP
 
-    Low RPM Automatic
+    Automatic Slow GUN
 
 
-    Special:Switch Mode
+    Special:Level UP
 
-    The character can switch between healing teammates and damaging enemies'
+    The boss can press shift when his special is charged to become stronger,every
+    time the boss level ups he becomes faster,stronger and more resilient'
 --- !u!222 &935069802
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2223,7 +2224,8 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_CCT: 6500
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1461087178
