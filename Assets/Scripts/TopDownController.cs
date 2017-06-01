@@ -7,6 +7,7 @@ public class TopDownController : NetworkBehaviour
     public float HorizontalAxis;
     public float VerticalAxis;
 
+    float UnableMovement;
 
     public float Speed;
 
@@ -18,15 +19,24 @@ public class TopDownController : NetworkBehaviour
             return;
         }
         MoveCharacter();
+        UnableMovement -= Time.deltaTime;
+    }
+
+    public void BecomeUnableToMove(float Time)
+    {
+        UnableMovement = Time;
 
     }
 
     void MoveCharacter()
     {
-        Vector3 TRA = transform.position;
-        TRA.x += HorizontalAxis * Speed * Time.deltaTime;
-        TRA.z += VerticalAxis * Speed * Time.deltaTime;
-        transform.position = TRA;
+        if (UnableMovement < 0.1f)
+        {
+            Vector3 TRA = transform.position;
+            TRA.x += HorizontalAxis * Speed * Time.deltaTime;
+            TRA.z += VerticalAxis * Speed * Time.deltaTime;
+            transform.position = TRA;
+        }
     }
     public void TeleportCharacter(int Ammount)
     {

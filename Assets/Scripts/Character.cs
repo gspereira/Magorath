@@ -32,7 +32,7 @@ public class Character : NetworkBehaviour {
     [SyncVar]
     public int Stamina;
     [SyncVar]
-    public float MaxStamina;
+    public int MaxStamina;
 
     // Gun Information
     [SyncVar]
@@ -57,10 +57,13 @@ public class Character : NetworkBehaviour {
     [SyncVar]
     public float HabilityCharge;
     [SyncVar]
+    public float SecondaryCharge;
+    [SyncVar]
     public float HabilityChargingSpeed;
     [SyncVar]
-    public int HabilityCounter;
-
+    public float SecondaryChargingSpeed;
+    [SyncVar]
+    public float Invincible;
     public bool Local;
 
     private void Start()
@@ -91,13 +94,24 @@ public class Character : NetworkBehaviour {
 
         FiringCooldown += Time.deltaTime;
         HabilityCharge += HabilityChargingSpeed * Time.deltaTime;
+        SecondaryCharge += SecondaryChargingSpeed * Time.deltaTime;
+        if(Invincible > -0.1f)
+        {
+            Invincible -= Time.deltaTime;
+        }
         if (!isLocalPlayer) { return; }
 
         if (Input.GetButtonDown("Fire3"))
         {
             if (HabilityCharge > 100) { Special(); }
         }
-        if(Stamina > 0 && Input.GetButton("Fire2"))
+
+        if (Input.GetButtonDown("Fire4"))
+        {
+            if (SecondaryCharge > 100) { SecondarySpecial(); }
+        }
+
+        if (Stamina > 0 && Input.GetButton("Fire2"))
         {
             TDC.Speed = SprintSpeed;
             Stamina--;
@@ -138,8 +152,30 @@ public class Character : NetworkBehaviour {
         GO.GetComponent<Rigidbody>().AddForce(BulletSpeed * transform.forward);
         BL.Shooter = gameObject;
         NetworkServer.Spawn(GO);
-
     }
+
+
+    [Command]
+    void CmdCustomShoot(int ProjetileIndex,float CustomBulletSpeed,int BulletDamage,bool Heal)
+    {
+        GameObject GO;
+        GO = Instantiate(ProjectilePrefabs[ProjetileIndex]);
+        GO.transform.position = GunPosition.transform.position;
+        if (ProjetileIndex < 4)
+        {
+            Bullet BL = GO.GetComponent<Bullet>();
+            BL.Damage = BulletDamage;
+            if (Heal) { GO.GetComponent<Bullet>().Heal = true; }
+            BL.Shooter = gameObject;
+        } else if (ProjetileIndex == 4)
+        {
+            ZaWarudo ZW = GO.GetComponent<ZaWarudo>();
+            ZW.Shooter = gameObject;
+        }
+        GO.GetComponent<Rigidbody>().AddForce(CustomBulletSpeed * transform.forward);
+        NetworkServer.Spawn(GO);
+    }
+
     [Command]
    public void CmdSpecialSetup()
     {
@@ -147,42 +183,78 @@ public class Character : NetworkBehaviour {
         {
             HabilityName = "Blink";
             HabilityChargingSpeed = 10f;
+            SecondaryChargingSpeed = 8f;
         }
         if(SpecialID == 1)
+        {
+            HabilityName = "Level UP";
+            HabilityChargingSpeed = 6f;
+        }
+        if(SpecialID == 2)
         {
             HabilityName = "Switch";
             HabilityChargingSpeed = 20f;
         }
-        if (SpecialID == 2)
+        if(SpecialID == 3)
         {
-            HabilityName = "Level UP";
-            HabilityChargingSpeed = 6f;
+            HabilityName = "Invencible";
+            HabilityChargingSpeed = 50f;
+            SecondaryChargingSpeed = 10f;
         }
     }
     void Special()
     {
         if (SpecialID == 0) { TDC.TeleportCharacter(15); }
-        if (SpecialID == 1) { if (FiringMode == 0) { FiringMode = 1; } else { FiringMode = 0; } }
-        if (SpecialID == 2)
+        if (SpecialID == 1)
         {
-            if (HabilityCounter < 5)
-            {
-                WalkingSpeed *= 0.75f;
-                SprintSpeed *= 0.75f;
-                FireRate *= 0.2f;
-                Damage *= 1.5f;
-                MaxStamina *= 1.2f;
-                HabilityCounter++;
-            }
+            WalkingSpeed *= 1.5f;
+            SprintSpeed *= 1.5f;
+            FireRate *= 0.5f;
+            Damage *= 1.5f;
+            MaxHP *= 2;
+            HP += MaxHP / 3;
+            MaxStamina *= 2;
         }
+        if (SpecialID == 2) { if (FiringMode == 0) { FiringMode = 1; } else { FiringMode = 0; } }
+        if (SpecialID == 3) { CmdBecomeInvincible(2); }
         HabilityCharge = 0;
+    }
+
+    [Command]
+    void CmdBecomeInvincible(int Time)
+    {
+        Invincible = Time;
+    }
+
+
+
+    void SecondarySpecial()
+    {
+        if(SpecialID == 0)
+        {
+            CmdCustomShoot(3, BulletSpeed * 0.5f, (int)Damage * 3, false);
+        }
+        if(SpecialID == 1)
+        {
+            CmdCustomShoot(4, 0, 0, false);
+        }
+        SecondaryCharge = 0;
+
+    }
+
+    public void ZaWarudo()
+    {
+        GetComponent<TopDownController>().BecomeUnableToMove(6);
     }
 
     [Server]
     public void TakeDamage(int Damage)
     {
-        Debug.Log("Trying to take Health away");
-        HP -= Damage;
+        if (Invincible < 0.1f)
+        {
+            Debug.Log("Trying to take Health away");
+            HP -= Damage;
+        }
     }
     [Server]
     public void HealDamage(int Healing)

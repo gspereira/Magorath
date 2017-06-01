@@ -295,6 +295,9 @@ MonoBehaviour:
   ProjectilePrefabs:
   - {fileID: 1322267876785112, guid: 702aead05db184543b1b020c7dcc5c6f, type: 2}
   - {fileID: 1901283161073500, guid: 757860bcd15327347ac4026d83a1b657, type: 2}
+  - {fileID: 1320057554017176, guid: 769efe171a736bd4299a8ed83b879d78, type: 2}
+  - {fileID: 1140892527455656, guid: 963072c3556b462479a04f08f0843e4b, type: 2}
+  - {fileID: 1796779184836670, guid: 7973eb66f1c6ff448831b245a78b3017, type: 2}
   GunPosition: {fileID: 4759314210623498}
   CharacterReady: 0
   SprintSpeed: 5
@@ -313,7 +316,10 @@ MonoBehaviour:
   SpecialID: 0
   HabilityName: 
   HabilityCharge: 0
+  SecondaryCharge: 0
   HabilityChargingSpeed: 0
+  SecondaryChargingSpeed: 0
+  Invincible: 0
   Local: 0
 --- !u!114 &114829042751568074
 MonoBehaviour:
