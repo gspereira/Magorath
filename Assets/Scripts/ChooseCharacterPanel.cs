@@ -42,6 +42,8 @@ public class ChooseCharacterPanel : NetworkBehaviour {
 
         if (I == 0)
         {
+            // Mage
+
             CHARA.MaxHP = 120;
             CHARA.HP = 120;
             CHARA.WalkingSpeed = 3;
@@ -50,32 +52,33 @@ public class ChooseCharacterPanel : NetworkBehaviour {
             CHARA.AutomaticFire = true;
             CHARA.MaxStamina = 700;
             CHARA.Stamina = 400;
-            CHARA.Damage = 2;
-            CHARA.FireRate = 0.05f;
+            CHARA.Damage = 20;
+            CHARA.FireRate = 0.25f;
             CHARA.SpecialID = 0;
             CHARA.CmdSpecialSetup();
         }
         if (I == 1)
         {
-            
+            // Paladin
 
             CHARA.MaxHP = 300;
             CHARA.HP = 300;
-            CHARA.WalkingSpeed = 2;
-            CHARA.SprintSpeed = 4;
-            CHARA.BulletSpeed = 1500;
-            CHARA.AutomaticFire = true;
-            CHARA.MaxStamina = 150;
-            CHARA.Stamina = 150;
-            CHARA.Damage = 50;
-            CHARA.FireRate = 0.7f;
-            CHARA.SpecialID = 1;
+            CHARA.WalkingSpeed = 3;
+            CHARA.SprintSpeed = 8;
+            CHARA.BulletSpeed = 0;
+            CHARA.AutomaticFire = false;
+            CHARA.MaxStamina = 250;
+            CHARA.Stamina = 250;
+            CHARA.Damage = 30;
+            CHARA.FireRate = 0.5f;
+            CHARA.SpecialID = 2;
+            CHARA.FiringMode = 2;
             CHARA.CmdSpecialSetup();
 
         }
         if (I == 2)
         {
-            
+            // Druid
 
             CHARA.MaxHP = 200;
             CHARA.HP = 200;
@@ -87,25 +90,24 @@ public class ChooseCharacterPanel : NetworkBehaviour {
             CHARA.Stamina = 250;
             CHARA.Damage = 10;
             CHARA.FireRate = 0.5f;
-            CHARA.SpecialID = 2;
+            CHARA.SpecialID = 1;
             CHARA.CmdSpecialSetup();
         }
         if (I == 3)
         {
+            // Chronomage
 
-
-            CHARA.MaxHP = 200;
-            CHARA.HP = 200;
+            CHARA.MaxHP = 120;
+            CHARA.HP = 120;
             CHARA.WalkingSpeed = 3;
-            CHARA.SprintSpeed = 6;
-            CHARA.BulletSpeed = 0;
-            CHARA.AutomaticFire = false;
-            CHARA.MaxStamina = 250;
-            CHARA.Stamina = 250;
-            CHARA.Damage = 40;
-            CHARA.FireRate = 0.5f;
+            CHARA.SprintSpeed = 7;
+            CHARA.BulletSpeed = 900;
+            CHARA.AutomaticFire = true;
+            CHARA.MaxStamina = 700;
+            CHARA.Stamina = 400;
+            CHARA.Damage = 12;
+            CHARA.FireRate = 0.30f;
             CHARA.SpecialID = 3;
-            CHARA.FiringMode = 2;
             CHARA.CmdSpecialSetup();
         }
 

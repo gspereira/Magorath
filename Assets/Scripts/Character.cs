@@ -187,36 +187,40 @@ public class Character : NetworkBehaviour {
         }
         if(SpecialID == 1)
         {
-            HabilityName = "Level UP";
-            HabilityChargingSpeed = 6f;
-        }
-        if(SpecialID == 2)
-        {
             HabilityName = "Switch";
             HabilityChargingSpeed = 20f;
         }
-        if(SpecialID == 3)
+        if(SpecialID == 2)
         {
             HabilityName = "Invencible";
             HabilityChargingSpeed = 50f;
+        }
+        if (SpecialID == 3)
+        {
+            HabilityName = "Freeze Time";
+            HabilityChargingSpeed = 5f;
             SecondaryChargingSpeed = 10f;
+        }
+        if (SpecialID == 4)
+        {
+            HabilityName = "Level UP";
+            HabilityChargingSpeed = 6f;
         }
     }
     void Special()
     {
         if (SpecialID == 0) { TDC.TeleportCharacter(15); }
-        if (SpecialID == 1)
+        if (SpecialID == 1) { if (FiringMode == 0) { FiringMode = 1; } else { FiringMode = 0; } }
+        if (SpecialID == 2) { CmdBecomeInvincible(2); }
+        if (SpecialID == 4)
         {
-            WalkingSpeed *= 1.5f;
-            SprintSpeed *= 1.5f;
-            FireRate *= 0.5f;
-            Damage *= 1.5f;
-            MaxHP *= 2;
-            HP += MaxHP / 3;
+            WalkingSpeed *= 0.5f;
+            SprintSpeed *= 0.5f;
+            FireRate *= 0.2f;
+            Damage *= 0.2f;
             MaxStamina *= 2;
+            MaxHP += MaxHP / 5;
         }
-        if (SpecialID == 2) { if (FiringMode == 0) { FiringMode = 1; } else { FiringMode = 0; } }
-        if (SpecialID == 3) { CmdBecomeInvincible(2); }
         HabilityCharge = 0;
     }
 
@@ -230,16 +234,17 @@ public class Character : NetworkBehaviour {
 
     void SecondarySpecial()
     {
+        // Pyroblast
         if(SpecialID == 0)
         {
             CmdCustomShoot(3, BulletSpeed * 0.5f, (int)Damage * 3, false);
         }
-        if(SpecialID == 1)
+        // Freeze Time
+        if(SpecialID == 3 )
         {
             CmdCustomShoot(4, 0, 0, false);
         }
         SecondaryCharge = 0;
-
     }
 
     public void ZaWarudo()
