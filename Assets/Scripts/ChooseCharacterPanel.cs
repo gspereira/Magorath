@@ -53,7 +53,7 @@ public class ChooseCharacterPanel : NetworkBehaviour {
             CHARA.MaxStamina = 700;
             CHARA.Stamina = 400;
             CHARA.Damage = 15;
-            CHARA.FireRate = 0.25f;
+            CHARA.FireRate = 0.40f;
             CHARA.SpecialID = 0;
             CHARA.CmdSpecialSetup();
         }
@@ -70,7 +70,7 @@ public class ChooseCharacterPanel : NetworkBehaviour {
             CHARA.MaxStamina = 250;
             CHARA.Stamina = 250;
             CHARA.Damage = 30;
-            CHARA.FireRate = 0.5f;
+            CHARA.FireRate = 0.60f;
             CHARA.SpecialID = 2;
             CHARA.FiringMode = 2;
             CHARA.CmdSpecialSetup();
@@ -89,7 +89,7 @@ public class ChooseCharacterPanel : NetworkBehaviour {
             CHARA.MaxStamina = 250;
             CHARA.Stamina = 250;
             CHARA.Damage = 15;
-            CHARA.FireRate = 0.5f;
+            CHARA.FireRate = 0.60f;
             CHARA.SpecialID = 1;
             CHARA.CmdSpecialSetup();
         }
@@ -106,7 +106,7 @@ public class ChooseCharacterPanel : NetworkBehaviour {
             CHARA.MaxStamina = 700;
             CHARA.Stamina = 400;
             CHARA.Damage = 20;
-            CHARA.FireRate = 0.40f;
+            CHARA.FireRate = 0.50f;
             CHARA.SpecialID = 3;
             CHARA.CmdSpecialSetup();
         }
