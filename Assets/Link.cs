@@ -9,8 +9,11 @@ public class Link : MonoBehaviour {
     public Slider HPSlider;
     [SerializeField]
     public Slider SPSlider;
+
     [SerializeField]
     public Slider SpecialSlider;
+    [SerializeField]
+    public Slider Special2Slider;
 
     // Use this for initialization
     void Start () {

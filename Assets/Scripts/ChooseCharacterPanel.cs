@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class ChooseCharacterPanel : NetworkBehaviour {
+public class ChooseCharacterPanel : MonoBehaviour {
     public GameObject StartingPanel;
     public GameObject HudPanel;
     [SerializeField]
@@ -21,7 +21,9 @@ public class ChooseCharacterPanel : NetworkBehaviour {
     [SerializeField]
     Slider SpecialSlider;
 
-
+    int SlotChoosen;
+    [SerializeField]
+    NetworkInfo NI;
 
     Transform RandomSpawnPosition()
     {
@@ -35,6 +37,44 @@ public class ChooseCharacterPanel : NetworkBehaviour {
 
     }
     
+    public void ChooseSlot(int I)
+    {
+        SlotChoosen = I;
+    }
+
+    public void SelectSlot(int Slot)
+    {
+        if (Slot == 0)
+        {
+            CHA.SelectSlotButton(0);
+        }
+        if (Slot == 1)
+        {
+            CHA.SelectSlotButton(1);
+        }
+        if (Slot == 2)
+        {
+            CHA.SelectSlotButton(2);
+        }
+        if (Slot == 3)
+        {
+            CHA.SelectSlotButton(3);
+        }
+    }
+
+    public void BecomeReady()
+    {
+        CHA.BecomeReady();
+    }
+
+    private void Update()
+    {
+        if (NI.AllPlayersReady)
+        {
+            ChooseCharacter(SlotChoosen);
+        }
+    }
+
     void CmdChooseCharacter(Character CHARA,int I)
     {
         Transform RSP = RandomSpawnPosition();

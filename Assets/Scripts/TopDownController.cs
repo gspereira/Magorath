@@ -10,6 +10,15 @@ public class TopDownController : NetworkBehaviour
     float UnableMovement;
 
     public float Speed;
+    [SerializeField]
+    bool RigidBodyMovement;
+
+    Rigidbody RB;
+
+    private void Start()
+    {
+        RB = GetComponent<Rigidbody>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -32,10 +41,16 @@ public class TopDownController : NetworkBehaviour
     {
         if (UnableMovement < 0.1f)
         {
-            Vector3 TRA = transform.position;
-            TRA.x += HorizontalAxis * Speed * Time.deltaTime;
-            TRA.z += VerticalAxis * Speed * Time.deltaTime;
-            transform.position = TRA;
+            if (!RigidBodyMovement)
+            {
+                Vector3 TRA = transform.position;
+                TRA.x += HorizontalAxis * Speed * Time.deltaTime;
+                TRA.z += VerticalAxis * Speed * Time.deltaTime;
+                transform.position = TRA;
+            } else
+            {
+                RB.velocity = new Vector3(HorizontalAxis * Speed,0, VerticalAxis * Speed);
+            }
         }
     }
     public void TeleportCharacter(int Ammount)

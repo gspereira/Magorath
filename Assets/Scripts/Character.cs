@@ -15,7 +15,13 @@ public class Character : NetworkBehaviour {
 
     public Transform GunPosition;
 
+    [SyncVar]
+    public int CharacterStatus = 0;
+
     public bool CharacterReady = false;
+    [SyncVar]
+    public bool PlayerReady = false;
+
 
     // Movement Information
     [SyncVar]
@@ -54,6 +60,7 @@ public class Character : NetworkBehaviour {
     [SyncVar]
     public int SpecialID;
     public string HabilityName;
+    public string Hability2Name;
     [SyncVar]
     public float HabilityCharge;
     [SyncVar]
@@ -64,6 +71,8 @@ public class Character : NetworkBehaviour {
     public float SecondaryChargingSpeed;
     [SyncVar]
     public float Invincible;
+    [SyncVar]
+    public float BuffSpeed;
     public bool Local;
 
     private void Start()
@@ -72,6 +81,28 @@ public class Character : NetworkBehaviour {
         TDC = GetComponent<TopDownController>();
         CCP = GameObject.Find("Choose Character").GetComponent<ChooseCharacterPanel>();
     }
+
+    private void OnEnable()
+    {
+        NetworkInfo.NI.CmdConnected();
+    }
+
+    public void BecomeReady()
+    {
+        CmdBecomeReady();
+    }
+
+    [Command]
+    public void CmdBecomeReady()
+    {
+        //CharacterStatus = 1;
+        if (!PlayerReady)
+        {
+            NetworkInfo.NI.PlayersReady++;
+            PlayerReady = true;
+        }
+    }
+
 
     private void Update()
     {
@@ -99,6 +130,25 @@ public class Character : NetworkBehaviour {
         {
             Invincible -= Time.deltaTime;
         }
+        if (BuffSpeed > -0.1f)
+        {
+            BuffSpeed -= Time.deltaTime;
+        }
+        
+        if(SpecialID == 2)
+        {
+            if (BuffSpeed > 0)
+            {
+                WalkingSpeed = 6;
+                SprintSpeed = 16;
+            }
+            else 
+            {
+                WalkingSpeed = 3;
+                SprintSpeed = 8;
+            }
+        }
+
         if (!isLocalPlayer) { return; }
 
         if (Input.GetButtonDown("Fire3"))
@@ -154,6 +204,17 @@ public class Character : NetworkBehaviour {
         NetworkServer.Spawn(GO);
     }
 
+    public void SelectSlotButton(int I)
+    {
+        CmdSlotButton(I);
+    }
+
+
+    [Command]
+    void CmdSlotButton(int I)
+    {
+        NetworkInfo.NI.CmdSelectSlot(I);
+    }
 
     [Command]
     void CmdCustomShoot(int ProjetileIndex,float CustomBulletSpeed,int BulletDamage,bool Heal)
@@ -182,27 +243,32 @@ public class Character : NetworkBehaviour {
         if (SpecialID == 0)
         {
             HabilityName = "Blink";
+            Hability2Name = "Teste1";
             HabilityChargingSpeed = 10f;
             SecondaryChargingSpeed = 8f;
         }
         if(SpecialID == 1)
         {
             HabilityName = "Switch";
+            Hability2Name = "Healar Tudo";
             HabilityChargingSpeed = 20f;
         }
         if(SpecialID == 2)
         {
             HabilityName = "Invencible";
+            Hability2Name = "Teste3";
             HabilityChargingSpeed = 50f;
         }
         if (SpecialID == 3)
         {
             HabilityName = "Freeze Time";
+            Hability2Name = "Teste4";
             HabilityChargingSpeed = 5f;
             SecondaryChargingSpeed = 10f;
         }
         if (SpecialID == 4)
         {
+            Hability2Name = "Teste5";
             HabilityName = "Level UP";
             HabilityChargingSpeed = 6f;
         }
@@ -221,6 +287,11 @@ public class Character : NetworkBehaviour {
             MaxStamina *= 2;
             MaxHP += MaxHP / 5;
         }
+        // Freeze Time
+        if (SpecialID == 3)
+        {
+            CmdCustomShoot(4, 0, 0, false);
+        }
         HabilityCharge = 0;
     }
 
@@ -228,6 +299,12 @@ public class Character : NetworkBehaviour {
     void CmdBecomeInvincible(int Time)
     {
         Invincible = Time;
+    }
+
+    [Command]
+    void CmdBecomeFast(int Time)
+    {
+        BuffSpeed = Time;
     }
 
 
@@ -239,10 +316,22 @@ public class Character : NetworkBehaviour {
         {
             CmdCustomShoot(3, BulletSpeed * 0.5f, (int)Damage * 3, false);
         }
-        // Freeze Time
-        if(SpecialID == 3 )
+
+        // HEala o mapa todo
+        if(SpecialID == 1)
         {
-            CmdCustomShoot(4, 0, 0, false);
+            CmdCustomShoot(5, 0, 10, true);
+        }
+        // Ficar rapido e invencivel
+        if (SpecialID == 2)
+        {
+            CmdBecomeInvincible(2);
+            CmdBecomeFast(2);
+        }
+
+        if (SpecialID == 3)
+        {
+            CmdCustomShoot(5, 0, 10, true);
         }
         SecondaryCharge = 0;
     }

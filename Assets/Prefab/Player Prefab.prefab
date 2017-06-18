@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 114829042751568074}
   - component: {fileID: 114865792159847248}
   - component: {fileID: 114946308835370978}
+  - component: {fileID: 54632454592290896}
   m_Layer: 0
   m_Name: Player Prefab
   m_TagString: Player
@@ -230,6 +231,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336945942507466}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54632454592290896
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281731315923822}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!65 &65853478019045972
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -281,6 +297,7 @@ MonoBehaviour:
   HorizontalAxis: 0
   VerticalAxis: 0
   Speed: 3
+  RigidBodyMovement: 1
 --- !u!114 &114727747549935716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -298,8 +315,11 @@ MonoBehaviour:
   - {fileID: 1320057554017176, guid: 769efe171a736bd4299a8ed83b879d78, type: 2}
   - {fileID: 1140892527455656, guid: 963072c3556b462479a04f08f0843e4b, type: 2}
   - {fileID: 1796779184836670, guid: 7973eb66f1c6ff448831b245a78b3017, type: 2}
+  - {fileID: 1605983845673878, guid: f45e7e6b3d82f2d43bf1d003e04dd07a, type: 2}
   GunPosition: {fileID: 4759314210623498}
+  CharacterStatus: 0
   CharacterReady: 0
+  PlayerReady: 0
   SprintSpeed: 5
   WalkingSpeed: 2
   HP: 100
@@ -315,11 +335,13 @@ MonoBehaviour:
   FiringMode: 0
   SpecialID: 0
   HabilityName: 
+  Hability2Name: 
   HabilityCharge: 0
   SecondaryCharge: 0
   HabilityChargingSpeed: 0
   SecondaryChargingSpeed: 0
   Invincible: 0
+  BuffSpeed: 0
   Local: 0
 --- !u!114 &114829042751568074
 MonoBehaviour:
@@ -335,7 +357,9 @@ MonoBehaviour:
   HPSlider: {fileID: 0}
   StaminaSlider: {fileID: 0}
   SpecialSlider: {fileID: 0}
+  Special2Slider: {fileID: 0}
   SpecialSliderName: {fileID: 0}
+  Special2SliderName: {fileID: 0}
   Setup: 0
 --- !u!114 &114865792159847248
 MonoBehaviour:
@@ -397,7 +421,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1281731315923822}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
