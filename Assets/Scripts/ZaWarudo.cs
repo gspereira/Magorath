@@ -2,36 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-
-
-
-public class Bullet : NetworkBehaviour {
+public class ZaWarudo : NetworkBehaviour
+{
     [SyncVar]
     public int Damage;
     [SyncVar]
     public bool Heal;
-    [SyncVar]
-    public int Team;
+
     public GameObject Shooter;
 
     private void Start()
     {
-        Destroy(gameObject, 2);
-        Debug.Log("Bullet Spawned!");
+        Destroy(gameObject, 0.7f);
     }
-   
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject != Shooter)
         {
             if (other.gameObject.tag == "Player")
             {
-                if (isServer)
+                Character CHARA;
+                if (other.GetComponent<Character>() != null)
                 {
-                    if (other.gameObject.GetComponent<Character>().Team != Team)
-                    {
-                        Character CHA = other.gameObject.GetComponent<Character>();
-                        CHA.TakeDamage(Damage);
+                    CHARA = other.GetComponent<Character>();
+                    if (CHARA.SpecialID == 1) { 
+
+                        CHARA.ZaWarudo();
                         Destroy(gameObject);
                     }
                 }
@@ -39,4 +36,3 @@ public class Bullet : NetworkBehaviour {
         }
     }
 }
-

@@ -29,6 +29,8 @@ public class Character : NetworkBehaviour {
     [SyncVar]
     public float WalkingSpeed;
 
+    [SyncVar]
+    public int Team;
 
     // Vital Information
     [SyncVar]
@@ -75,6 +77,11 @@ public class Character : NetworkBehaviour {
     public float BuffSpeed;
     public bool Local;
 
+    [SyncVar]
+    public bool Dead;
+    [SyncVar]
+    public bool Boss;
+
     private void Start()
     {
         LN = GameObject.Find("Linking Point").GetComponent<Link>();
@@ -113,7 +120,6 @@ public class Character : NetworkBehaviour {
                 CCP.LinkPanel(this);
                 LN.MainCamera.GetComponent<CameraFollow>().Target = transform;
                 GetComponent<TestMouse>().PlayerCamera = LN.MainCamera.GetComponent<Camera>();
-
             }
 
         }
@@ -121,6 +127,15 @@ public class Character : NetworkBehaviour {
         if (isLocalPlayer)
         {
             Local = true;
+        }
+
+        if (Dead)
+        {
+            TDC.enabled = false;
+            if (isLocalPlayer)
+            {
+                LN.DeadScreen.SetActive(true);
+            }
         }
 
         FiringCooldown += Time.deltaTime;
@@ -244,7 +259,9 @@ public class Character : NetworkBehaviour {
         {
             HabilityName = "Blink";
             Hability2Name = "Teste1";
+            // Velocidade que a primeira habilidade carrega
             HabilityChargingSpeed = 10f;
+            // Velocidade que a Segunda habilidade carrega
             SecondaryChargingSpeed = 8f;
         }
         if(SpecialID == 1)
@@ -268,7 +285,8 @@ public class Character : NetworkBehaviour {
         }
         if (SpecialID == 4)
         {
-            Hability2Name = "Teste5";
+            Boss = true;
+            Hability2Name = "Teste1";
             HabilityName = "Level UP";
             HabilityChargingSpeed = 6f;
         }
@@ -278,6 +296,11 @@ public class Character : NetworkBehaviour {
         if (SpecialID == 0) { TDC.TeleportCharacter(15); }
         if (SpecialID == 1) { if (FiringMode == 0) { FiringMode = 1; } else { FiringMode = 0; } }
         if (SpecialID == 2) { CmdBecomeInvincible(2); }
+        // Freeze Time
+        if (SpecialID == 3)
+        {
+            CmdCustomShoot(4, 0, 0, false);
+        }
         if (SpecialID == 4)
         {
             WalkingSpeed *= 0.5f;
@@ -287,10 +310,32 @@ public class Character : NetworkBehaviour {
             MaxStamina *= 2;
             MaxHP += MaxHP / 5;
         }
-        // Freeze Time
-        if (SpecialID == 3)
+        if (SpecialID == 5)
         {
-            CmdCustomShoot(4, 0, 0, false);
+            WalkingSpeed *= 0.5f;
+            SprintSpeed *= 0.5f;
+            FireRate *= 0.2f;
+            Damage *= 0.2f;
+            MaxStamina *= 2;
+            MaxHP += MaxHP / 5;
+        }
+        if (SpecialID == 6)
+        {
+            WalkingSpeed *= 0.5f;
+            SprintSpeed *= 0.5f;
+            FireRate *= 0.2f;
+            Damage *= 0.2f;
+            MaxStamina *= 2;
+            MaxHP += MaxHP / 5;
+        }
+        if (SpecialID == 7)
+        {
+            WalkingSpeed *= 0.5f;
+            SprintSpeed *= 0.5f;
+            FireRate *= 0.2f;
+            Damage *= 0.2f;
+            MaxStamina *= 2;
+            MaxHP += MaxHP / 5;
         }
         HabilityCharge = 0;
     }
@@ -333,6 +378,24 @@ public class Character : NetworkBehaviour {
         {
             CmdCustomShoot(5, 0, 10, true);
         }
+
+        // Pyroblast
+        if (SpecialID == 4)
+        {
+            CmdCustomShoot(3, BulletSpeed * 0.5f, (int)Damage * 3, false);
+        }
+
+        // HEala o mapa todo
+        if (SpecialID == 5)
+        {
+            CmdCustomShoot(5, 0, 10, true);
+        }
+        // Ficar rapido e invencivel
+        if (SpecialID == 6)
+        {
+            CmdBecomeInvincible(2);
+            CmdBecomeFast(2);
+        }
         SecondaryCharge = 0;
     }
 
@@ -348,6 +411,20 @@ public class Character : NetworkBehaviour {
         {
             Debug.Log("Trying to take Health away");
             HP -= Damage;
+            if(HP < 1)
+            {
+                Die();
+            }
+        }
+    }
+
+    [Server]
+    void Die()
+    {
+        Dead = true;
+        if (Boss)
+        {
+            NetworkInfo.NI.BossDied = true;
         }
     }
     [Server]
