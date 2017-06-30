@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d49a7825c0ff6e345a2bfcf9a88e847f
+timeCreated: 1498779239
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Boycott
+  fontNames:
+  - Boycott
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
