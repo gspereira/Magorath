@@ -74,6 +74,7 @@ LightmapSettings:
     m_MixedBakeMode: 3
     m_BakeBackend: 0
     m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -178,6 +179,47 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 6937180}
   m_Mesh: {fileID: 4300000, guid: ca8e970efa75d2d4581d7ed39905531b, type: 3}
+--- !u!1 &54165551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 54165553}
+  - component: {fileID: 54165552}
+  m_Layer: 0
+  m_Name: Fade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &54165552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 54165551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51cd88b8adb0292428ea1ae7b0309709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeOutTexture: {fileID: 2800000, guid: 954e352b74bfd1f4baf73f83bb186f10, type: 3}
+--- !u!4 &54165553
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 54165551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 543.99963, y: 306, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &77295885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,8 +1107,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -296, y: -251}
-  m_SizeDelta: {x: -1243.027, y: -781.99994}
+  m_AnchoredPosition: {x: -217, y: -251}
+  m_SizeDelta: {x: -1149, y: -782}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &576712153
 MonoBehaviour:
@@ -1143,7 +1185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 0.791, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2220,8 +2262,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -557, y: -251}
-  m_SizeDelta: {x: 235, y: 76}
+  m_AnchoredPosition: {x: -550.06, y: -251}
+  m_SizeDelta: {x: 248.89, y: 76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &874582624
 MonoBehaviour:
@@ -2294,8 +2336,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: fa0992e00eeb2a24dbd39b2b21b344cf, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2431,7 +2473,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1069715481}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.028604, y: 1.1036, z: -0.020673}
+  m_LocalPosition: {x: -0.028604, y: 0.19, z: -0.020673}
   m_LocalScale: {x: 0.71000004, y: 0.71000004, z: 0.71000004}
   m_Children:
   - {fileID: 1790630708}
@@ -3105,7 +3147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -274.00003, y: -244.50002}
+  m_AnchoredPosition: {x: -274.00003, y: -244.5}
   m_SizeDelta: {x: 259, y: 63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1364483070
@@ -3394,8 +3436,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: fa0992e00eeb2a24dbd39b2b21b344cf, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4967,7 +5009,8 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_CCT: 6500
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &2101793843
