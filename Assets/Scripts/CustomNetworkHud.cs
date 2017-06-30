@@ -23,6 +23,12 @@ public class CustomNetworkHud : MonoBehaviour {
     void Update()
     {
         NM.networkAddress = IF.text;
+
+        if (Input.GetKeyDown("i"))
+        {
+            NM.networkAddress = "localhost";
+            ConnectToMatch();
+        }
     }
 
     public void HostMatch()

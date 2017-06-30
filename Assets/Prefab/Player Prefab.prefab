@@ -322,6 +322,7 @@ MonoBehaviour:
   PlayerReady: 0
   SprintSpeed: 5
   WalkingSpeed: 2
+  Team: 0
   HP: 100
   MaxHP: 100
   Stamina: 0
@@ -343,6 +344,8 @@ MonoBehaviour:
   Invincible: 0
   BuffSpeed: 0
   Local: 0
+  Dead: 0
+  Boss: 0
 --- !u!114 &114829042751568074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -404,8 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.03448276
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.033333335
   m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0

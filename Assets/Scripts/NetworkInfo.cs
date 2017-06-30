@@ -35,12 +35,15 @@ public class NetworkInfo : NetworkBehaviour {
 
     public static NetworkInfo NI;
 
+    [SerializeField]
+    GameObject DeadCanvas;
+
     private void Awake()
     {
-        if(NI == null)
+        if (NI == null)
         {
             NI = this;
-        } else if(NI != this)
+        } else if (NI != this)
         {
             Destroy(gameObject);
         }
@@ -69,12 +72,22 @@ public class NetworkInfo : NetworkBehaviour {
     {
         PlayersReady--;
     }
+    [Command]
+    public void CmdPlayerDied()
+    {
+        PlayersDead++;
+    }
+    [Command]
+    public void CmdBossDied()
+    {
+        BossDied = true;
+    }
 
     [Command]
     public void CmdSelectSlot(int I)
     {
         BossNumber = Random.Range(0, 3);
-        CheckForReady();
+        //CheckForReady();
         if (I == 0)
         {
             Classe1 = false;
@@ -97,28 +110,28 @@ public class NetworkInfo : NetworkBehaviour {
     public void CmdSelectSlot1()
     {
         BossNumber = Random.Range(0, 3);
-        CheckForReady();
+        //CheckForReady();
         Classe1 = false;
     }
     [Command]
     public void CmdSelectSlot2()
     {
         BossNumber = Random.Range(0, 3);
-        CheckForReady();
+        //CheckForReady();
         Classe2 = false;
     }
     [Command]
     public void CmdSelectSlot3()
     {
         BossNumber = Random.Range(0, 3);
-        CheckForReady();
+        
         Classe3 = false;
     }
     [Command]
     public void CmdSelectSlot4()
     {
         BossNumber = Random.Range(0, 3);
-        CheckForReady();
+        
         Classe4 = false;
     }
 
@@ -172,6 +185,10 @@ public class NetworkInfo : NetworkBehaviour {
                     AllPlayersReady = false;
                 }
             }
+        }
+        if (BossDied)
+        {
+            DeadCanvas.SetActive(true);
         }
     }
 
