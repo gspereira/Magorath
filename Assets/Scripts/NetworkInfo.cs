@@ -73,6 +73,7 @@ public class NetworkInfo : NetworkBehaviour {
     [Command]
     public void CmdSelectSlot(int I)
     {
+        BossNumber = Random.Range(0, 3);
         CheckForReady();
         if (I == 0)
         {
@@ -95,24 +96,28 @@ public class NetworkInfo : NetworkBehaviour {
     [Command]
     public void CmdSelectSlot1()
     {
+        BossNumber = Random.Range(0, 3);
         CheckForReady();
         Classe1 = false;
     }
     [Command]
     public void CmdSelectSlot2()
     {
+        BossNumber = Random.Range(0, 3);
         CheckForReady();
         Classe2 = false;
     }
     [Command]
     public void CmdSelectSlot3()
     {
+        BossNumber = Random.Range(0, 3);
         CheckForReady();
         Classe3 = false;
     }
     [Command]
     public void CmdSelectSlot4()
     {
+        BossNumber = Random.Range(0, 3);
         CheckForReady();
         Classe4 = false;
     }
@@ -130,6 +135,7 @@ public class NetworkInfo : NetworkBehaviour {
     [Server]
     private void CheckForReady()
     {
+        BossNumber = Random.Range(0, 3);
         GameObject[] PlayerObjects;
         PlayerObjects = GameObject.FindGameObjectsWithTag("Player");
 
@@ -172,6 +178,7 @@ public class NetworkInfo : NetworkBehaviour {
     public void CmdConnected()
     {
         Debug.Log("Player Connected");
+        
         PlayersConnected++;
     }
 
